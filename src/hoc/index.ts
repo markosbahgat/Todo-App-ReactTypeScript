@@ -1,0 +1,1 @@
+export { TodoHOC } from './todo.hoc';
