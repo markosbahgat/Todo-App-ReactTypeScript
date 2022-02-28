@@ -7,25 +7,24 @@ import { Inputs } from '../../models/inputsData.model';
 
 interface Props extends React.HTMLProps<HTMLAllCollection> {
     onSubmitForm: (data: Inputs) => void,
+    CloseBtn: () => void,
+    sendBtn: () => void,
 }
 
-const BoxModel: React.FC<Props> = ({onSubmitForm}) => { 
+const BoxModel: React.FC<Props> = ({onSubmitForm, CloseBtn, sendBtn}) => { 
     
-    const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm<Inputs>();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitSuccessful },
+        reset
+     } = useForm<Inputs>();
+
     useEffect(() => {
         isSubmitSuccessful && reset()
     }, [isSubmitSuccessful, reset])
 
-    const CloseBtn = () => {
-        const  section = document.querySelector("section") as HTMLDivElement;
-        const textArea = section.querySelector("textarea") as HTMLTextAreaElement;
-        section.classList.remove("show");
-        textArea.value = "";
-    };
-    const sendBtn = () => {
-        const  section = document.querySelector("section") as HTMLDivElement;
-        section.classList.remove("show");
-      }
+    
     return ( 
         <section>
         <div className="popup-outer">
@@ -50,7 +49,7 @@ const BoxModel: React.FC<Props> = ({onSubmitForm}) => {
                         {...register("todoPriority", { required: true })}
                         className="input_Select"
                         >
-                            <option>Select Priority</option>
+                            <option>Choose Priority</option>
                             <option value={EPriority.HIGH}>{EPriority.HIGH}</option>
                             <option value={EPriority.MEDIUM}>{EPriority.MEDIUM}</option>
                             <option value={EPriority.LOW}>{EPriority.LOW}</option>

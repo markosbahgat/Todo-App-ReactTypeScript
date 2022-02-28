@@ -18,8 +18,15 @@ const todosSlice = createSlice({
         appendTodo: (state, {payload}: PayloadAction<ITodo>) => {
             state.todos.push(payload);
         },
-        updateTodo: (state, action) => {},
-        deleteTodo: (state, action) => {},
+        updateTodo: (state, {payload}: PayloadAction<string>) => {
+
+        },
+        deleteTodo: (state, {payload}: PayloadAction<string>) => {
+            state.todos = state.todos.filter(item => item.todo_id !== payload);
+        },
+        localStore: (state, {payload} : PayloadAction<ITodo[]>) => {
+            state.todos = payload;
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(AllTodos.pending, (state) => {
